@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 id="title">Pizzaria do Bairro - Pesquisa</h1>
+        <p id="description">Obrigado por ajudar a melhorar nossos serviços.</p>
+    </header>
+    <form id="survey-form">
+        <label id="name-label" for="name">Nome:</label>
+        <input type="text" name="name" id="name" placeholder="Insira seu Nome" required>
+        <label id="email-label" for="email">E-mail:</label>
+        <input type="email" name="email" id="email" placeholder="Insira seu E-Mail" required>
+        <label for="number" id="number-label">Idade:</label>
+        <input type="number" name="number" id="number" min="1" max="100" placeholder="22" required>
+        <label for="dropdown">Estado:</label>
+        <select id="dropdown" name="state" required>
+            <option disabled selected value>Selecione o Estado</option>
+            <option value="rj">Rio de Janeiro</option>
+            <option value="sp">São Paulo</option>
+            <option value="mg">Minas Gerais</option>
+        </select>
+        <div>
+        <label>Você recomendaria nossos serviços:</label>
+        <label><input
+            name="recommend"
+            value="yes"
+            type="radio"
+            checked
+        />Sim</label
+        >
+        <label><input
+            name="recommend"
+            value="no"
+            type="radio"
+        />Não</label>
+        <label><input
+            name="recommend"
+            value="maybe"
+            type="radio"
+        />Talvez</label>
+        </div>
+        <div>
+        <label>Sabores de Pizza preferidos:</label>
+        <label><input
+            name="prefer"
+            value="calabresa"
+            type="checkbox"
+        />Calabresa</label>
+        <label><input
+            name="prefer"
+            value="portuguesa"
+            type="checkbox"
+        />Portuguesa</label>
+        <label><input
+            name="prefer"
+            value="marguerita"
+            type="checkbox"
+        />Marguerita</label>
+        <label><input
+            name="prefer"
+            value="frangocomcatupiry"
+            type="checkbox"
+        />Frango com catupiry</label>
+        <label><input
+            name="prefer"
+            value="mucarela"
+            type="checkbox"
+        />Muçarela</label>
+        <label><input
+            name="prefer"
+            value="napolitana"
+            type="checkbox"
+        />Napolitana</label>
+        <label><input
+            name="prefer"
+            value="brigadeiro"
+            type="checkbox"
+        />Brigadeiro</label>
+        <label><input
+            name="prefer"
+            value="outra"
+            type="checkbox"
+            checked
+        />Outra</label>
+        </div>
+        <label for="suggestion">Alguma sugestão? (opcional):</label>
+        <textarea name="suggestion" id="suggestion" cols="30" rows="10"></textarea>
+        <input id="submit" type="submit" value="Enviar">
+    </form>
+    <footer>Site desenvolvido por <a href="https://github.com/JNCJcoder" target="_blank">JNCJcoder</a></footer>
+</body>
+</html>

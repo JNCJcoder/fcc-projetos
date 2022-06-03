@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+html 
+{
+    font-size: 10px;
+}
+
+body 
+{
+    font-family: Roboto, 'Segoe Ui', Arial;
+    font-size: 1.6rem;
+    text-align: center;
+    background-color: #292323;
+    color: #fff;
+}
+
+h1, p
+{
+    margin: 0px;
+}
+
+#survey-form
+{
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    max-width: 40%;
+    margin: 2% auto;
+    background-color: #333639;
+}
+
+div
+{
+    display: flex;
+    flex-direction: column;
+}
+
+input, select
+{
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-style: 4px;
+    border-radius: 5px;
+}
+
+input:user-invalid
+{
+    border-color: #f00;
+}
+
+input:valid
+{
+    border-color: #008000;
+}
