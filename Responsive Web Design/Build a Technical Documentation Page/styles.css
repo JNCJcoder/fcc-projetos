@@ -1,0 +1,121 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+html, body
+{
+    font-family: 'Open Sans', Arial, sans-serif;
+    min-width: 290px;
+    width: 100%;
+    height: 100%;
+    line-height: 1.5;
+    background-color: #000;
+    color: #fff;
+}
+
+a
+{
+    font-weight: bolder;
+    color: #fff;
+}
+
+ul li
+{
+    list-style-type: none;
+}
+
+#navbar
+{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 234px;
+    height: 100%;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#navbar ul li
+{
+    margin: 10px 0;
+}
+
+header
+{
+    font-weight: thin;
+    font-size: 1.8em;
+    text-align: center;
+    margin: 10px;
+}
+
+code
+{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #4d4d4d
+}
+
+#main-doc
+{
+    height: 100%;
+    margin-left: 234px;
+    text-align: center;
+    background-color:#0b0f1a;
+}
+
+.main-section
+{
+    height: 100%;
+    padding: 0 15px;
+    background-color:#0b0f1a;
+}
+
+#INTRODUCTION table
+{
+    margin: 0 auto;
+    width: 50%;
+    border: 5px solid #292929;
+}
+
+#INTRODUCTION table tr td
+{
+    border: 5px solid #292929;
+}
+
+footer
+{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    background-color: #292929;
+}
+
+@media (max-width: 815px)
+{
+    #navbar
+    {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-height: 275px;
+    border: none;
+    z-index: 1;
+    border-bottom: 2px solid;
+    }
+
+    #main-doc 
+    {
+        position: relative;
+        margin-left: 0px;
+        margin-top: 275px;
+    }
+}

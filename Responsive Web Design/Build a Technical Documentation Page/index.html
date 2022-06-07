@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeJS Unoficial Doc</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav id="navbar">
+        <header>NodeJS Doc</header>
+        <ul>
+            <li><a href="#Introduction" class="nav-link">Introduction</a></li>
+            <li><a href="#HTTP" class="nav-link">HTTP</a></li>
+            <li><a href="#HTTP_2" class="nav-link">HTTP 2</a></li>
+            <li><a href="#HTTPS" class="nav-link">HTTPS</a></li>
+            <li><a href="#FS" class="nav-link">FS</a></li>
+        </ul>
+    </nav>
+    <main id="main-doc">
+        <section class="main-section" id="Introduction">
+            <header>Introduction</header>
+            <p>Welcome to the Unoficial API reference documentation for Node.js!</p>
+            <br>
+            <p>Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser.</p>
+            <br>
+            <p>V8 is the JavaScript execution engine which was initially built for Google Chrome. It was then open-sourced by Google in 2008. Written in C++, V8 compiles JavaScript source code to native machine code at runtime. As of 2016, it also includes Ignition, a bytecode interpreter.</p>
+            <br>
+            <h1>Stability overview</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>API</th>
+                        <th>Stability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#HTTP">HTTP</a></td>
+                        <td>Stable</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#HTTP_2">HTTP2</a></td>
+                        <td>Stable</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#HTTPS">HTTPS</a></td>
+                        <td>Stable</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#FS">FS</a></td>
+                        <td>Stable</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <h1>Links:</h1>
+            <ul>
+                <li><a href="https://nodejs.org/">NodeJS Site</a></li>
+                <li><a href="https://nodejs.org/api/documentation.html">NodeJS Oficial DOC</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Node.js">NodeJS in Wikipedia</a></li>
+            </ul>
+        </section>
+        <section class="main-section" id="HTTP">
+            <header>HTTP</header>
+            <p>To use the HTTP server and client one must <code>require('node:http')</code></p>
+            <br>
+            <p>The HTTP interfaces in Node.js are designed to support many features of the protocol which have been traditionally difficult to use. In particular, large, possibly chunk-encoded, messages. The interface is careful to never buffer entire requests or responses, so the user is able to stream data.</p>
+            <br>
+            <p>HTTP message headers are represented by an object like this:</p>
+            <br>
+            <code>{ 'content-length': '123',
+                'content-type': 'text/plain',
+                'connection': 'keep-alive',
+                'host': 'example.com',
+                'accept': '*/*' }</code>
+            <br>
+            <br>
+            <p>Keys are lowercased. Values are not modified.</p>
+            <br>
+            <p>See <code>message.headers</code> for details on how duplicate headers are handled.</p>
+            <br>
+            <br>
+            <p>The raw headers as they were received are retained in the <code>rawHeaders</code> property, which is an array of <code>[key, value, key2, value2, ...]</code>. For example, the previous message header object might have a <code>rawHeaders</code> list like the following:</p>
+            <br>
+            <code>[ 'ConTent-Length', '123456',
+                'content-LENGTH', '123',
+                'content-type', 'text/plain',
+                'CONNECTION', 'keep-alive',
+                'Host', 'example.com',
+                'accepT', '*/*' ]
+            </code>
+            <br>
+            <br>
+            <p>More info in <a href="https://nodejs.org/api/http.html">NodeJS's Oficial DOC</a></p>
+        </section>
+        <section class="main-section" id="HTTP_2">
+            <header>HTTP 2</header>
+            <p>The <code>node:http2</code> module provides an implementation of the HTTP/2 protocol. It can be accessed using:</p>
+            <br>
+            <code>const http2 = require('node:http2');</code>
+            <br>
+            <br>
+            <p>The <code>http2</code> Core API is much more symmetric between client and server than the
+                <code>http</code> API. For instance, most events, like <code>'error'</code>, <code>'connect'</code> and
+                <code>'stream'</code>, can be emitted either by client-side code or server-side code.</p>
+            <br>
+            <h1>Server-side example</h1>
+            <br>
+            <p>The following illustrates a simple HTTP/2 server using the Core API.
+                Since there are no browsers known that support
+                <a href="https://http2.github.io/faq/#does-http2-require-encryption">unencrypted HTTP/2</a>, the use of
+                <a href="#http2createsecureserveroptions-onrequesthandler"><code>http2.createSecureServer()</code></a> is necessary when communicating
+                with browser clients.</p>
+            <br>
+            <code>
+                const http2 = require('node:http2');
+const fs = require('node:fs');
+
+const server = http2.createSecureServer({
+  key: fs.readFileSync('localhost-privkey.pem'),
+  cert: fs.readFileSync('localhost-cert.pem')
+});
+server.on('error', (err) => console.error(err));
+
+server.on('stream', (stream, headers) => {
+  // stream is a Duplex
+  stream.respond({
+    'content-type': 'text/html; charset=utf-8',
+    ':status': 200
+  });
+  stream.end('<h_1>Hello World</h_1>');
+});
+
+server.listen(8443);
+            </code>
+            <br>
+            <br>
+            <p>To generate the certificate and key for this example, run:</p>
+            <br>
+            <code>
+                openssl req -x509 -newkey rsa:2048 -nodes -sha256 -subj '/CN=localhost' \
+  -keyout localhost-privkey.pem -out localhost-cert.pem
+            </code>
+            <br>
+            <p>More info in <a href="https://nodejs.org/api/http2.html">NodeJS's Oficial DOC</a></p>
+        </section>
+        <section class="main-section" id="HTTPS">
+            <header>HTTPS</header>
+            <p>HTTPS is the HTTP protocol over TLS/SSL. In Node.js this is implemented as a separate module.</p>
+            <br>
+            <code>let https;
+                try {
+                  https = await import('node:https');
+                } catch (err) {
+                  console.log('https support is disabled!');
+                }</code>
+                <br>
+                <br>
+            <p>More info in <a href="https://nodejs.org/api/https.html">NodeJS's Oficial DOC</a></p>
+        </section>
+        <section class="main-section" id="FS">
+            <header>FS</header>
+            <p>The <code>node:fs</code> module enables interacting with the file system in a
+                way modeled on standard POSIX functions.</p>
+            <br>
+            <p>To use the promise-based APIs:</p>
+            <br>
+            <code>
+                import * as fs from 'node:fs/promises';
+            </code>
+            <br>
+            <br>
+            <p>To use the callback and sync APIs:</p>
+            <br>
+            <code>
+                import * as fs from 'node:fs';
+            </code>
+            <br>
+            <br>
+            <p>All file system operations have synchronous, callback, and promise-based forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).</p>
+            <br>
+            <p>Examples:</p>
+            <ul>
+                <li><a href="https://nodejs.org/api/fs.html#promise-example">Promise Example</a></li>
+                <li><a href="https://nodejs.org/api/fs.html#callback-example">Callback Example</a></li>
+                <li><a href="https://nodejs.org/api/fs.html#synchronous-example">Synchronous example</a></li>
+            </ul>
+            <br>
+            <p>More info in <a href="https://nodejs.org/api/fs.html#file-system">NodeJS's Oficial DOC</a></p>
+        </section>
+    </main>
+    <footer>Site desenvolvido por <a href="https://github.com/JNCJcoder" target="_blank">JNCJcoder</a></footer>
+</body>
+</html>
